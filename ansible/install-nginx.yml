@@ -1,0 +1,28 @@
+---
+- name: Install and Configure Nginx
+  hosts: web
+  become: yes
+
+  tasks:
+    - name: Install Nginx
+      dnf:
+        name: nginx
+        state: present
+
+    - name: Start Nginx
+      service:
+        name: nginx
+        state: started
+        enabled: yes
+
+    - name: Create Website
+      copy:
+        content: |
+          <html>
+          <head><title>My DevOps Website</title></head>
+          <body>
+          <h1>Website Deployed using Terraform + Ansible</h1>
+          <h2>Automation Successful 🚀</h2>
+          </body>
+          </html>
+        dest: /usr/share/nginx/html/index.html
